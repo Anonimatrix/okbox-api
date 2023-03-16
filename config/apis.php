@@ -4,6 +4,12 @@ return [
     "search-console" => [
         'domains' => [ // Domains are the websites you want to get search console data from
             "https://okbox.fr/"
+        ],
+        "dimensions" => [
+            "query",
+            "page",
+            "device",
+            "country"
         ]
     ],
     "analytics" => [
@@ -25,6 +31,6 @@ return [
         ]
         ],
     "google-ads" => [
-            
+
     ]
 ];

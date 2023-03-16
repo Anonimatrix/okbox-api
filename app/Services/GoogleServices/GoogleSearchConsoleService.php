@@ -7,7 +7,9 @@ use Google\Service\SearchConsole;
 use Google\Service\SearchConsole\SearchAnalyticsQueryRequest;
 use Google\Service\AnalyticsReporting\DateRange;
 
-class GoogleSearchConsoleService extends GoogleService{
+class GoogleSearchConsoleService extends GoogleService {
+    public array $dimensions = Config::get('apis.search-console.dimensions', []);
+
     function getAnalytics(string $url, DateRange $date){
         parent::createClient();
         $this->client->addScope(SearchConsole::WEBMASTERS);
@@ -21,7 +23,7 @@ class GoogleSearchConsoleService extends GoogleService{
         $query = new SearchAnalyticsQueryRequest();
         $query->setStartDate($date->getStartDate());
         $query->setEndDate($date->getEndDate());
-        $query->setDimensions(["query"]);
+        $query->setDimensions($this->dimensions);
 
         return $query;
     }
