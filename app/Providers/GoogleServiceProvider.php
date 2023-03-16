@@ -14,7 +14,9 @@ class GoogleServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->register(GoogleSearchConsoleService::class);
+        $this->app->bind('GoogleSearchConsoleService', function ($app) {
+            return new GoogleSearchConsoleService();
+        });
     }
 
     /**
