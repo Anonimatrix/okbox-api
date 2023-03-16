@@ -1,5 +1,7 @@
 <?php 
 
+// In this file you can define configs of APIs you want to use
+
 return [
     "search-console" => [
         'domains' => [ // Domains are the websites you want to get search console data from
