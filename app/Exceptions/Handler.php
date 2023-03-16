@@ -44,6 +44,7 @@ class Handler extends ExceptionHandler
         });
 
         $this->renderable(function (Exception $e) {
+            if(env("APP_ENV") === 'local') dd($e);
             return response()->json(['message' => $e->getMessage(), "status" => "Error"]);
         });
     }

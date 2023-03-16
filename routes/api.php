@@ -34,3 +34,5 @@ Route::post("/reset-password/{token}", [ResetPasswordController::class, 'reset']
 // Route::get('/admin', [ProductController::class, 'admin'])->middleware('auth:sanctum');
 
 Route::get('/search-console', [AnalyticsController::class, 'searchConsole']);//->middleware(['auth:sanctum', 'verified']);
+
+Route::get('/analytics', [AnalyticsController::class, 'googleAnalytics']);//->middleware(['auth:sanctum', 'verified']);

@@ -4,17 +4,25 @@ namespace App\Services\GoogleServices;
 
 use Illuminate\Support\Facades\Config;
 use Google\Service\SearchConsole;
+use Google\Service\SearchConsole\SearchAnalyticsQueryRequest;
+use Google\Service\AnalyticsReporting\DateRange;
 
 class GoogleSearchConsoleService extends GoogleService{
-    function __construct(){
-        parent::__construct(Config::get('services.google.credentials_path'));
+    function getAnalytics(string $url, DateRange $date){
+        parent::createClient();
+        $this->client->addScope(SearchConsole::WEBMASTERS);
+        $googleSearch = new SearchConsole($this->client);
+        $query = $this->createQuery($date);
+
+        return $googleSearch->searchanalytics->query($url, $query);
     }
 
-    function getSiteMaps(string $url){
-        parent::createClient();
-        $this->client->addScope(SearchConsole::WEBMASTERS_READONLY);
-        $googleSearch = new SearchConsole($this->client);
+    function createQuery(DateRange $date): SearchAnalyticsQueryRequest {
+        $query = new SearchAnalyticsQueryRequest();
+        $query->setStartDate($date->getStartDate());
+        $query->setEndDate($date->getEndDate());
+        $query->setDimensions(["query"]);
 
-        return $googleSearch->sitemaps->listSitemaps($url);
+        return $query;
     }
 }

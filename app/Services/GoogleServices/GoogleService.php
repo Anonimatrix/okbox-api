@@ -6,17 +6,14 @@ use Google\Client;
 
 abstract class GoogleService{
 
-    public string $credentialsPath;
     public Client $client;
 
-    function __construct($credentialsPath){
-        $this->credentialsPath = $credentialsPath;
-    }
-
+    /**
+     * Create client and authenticate
+     */
     public function createClient() {
         $client = new Client();
-        $client->setAuthConfig($this->credentialsPath);
-        $client->setAccessType('offline');
+        $client->useApplicationDefaultCredentials();
 
         $this->client = $client;
     }

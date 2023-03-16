@@ -30,8 +30,4 @@ return [
         'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
     ],
 
-    'google' => [
-        'credentials_path' => '../credentials/okbox-380719-b579f6d6b00e.json'
-    ]
-
 ];
