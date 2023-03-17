@@ -10,6 +10,11 @@ use Google\Service\AnalyticsReporting\DateRange;
 class GoogleSearchConsoleService extends GoogleService {
     public array $dimensions = Config::get('apis.search-console.dimensions', []);
 
+    /**
+     * Get analytics from Google Search Console API of url with date range and config dimensions
+     * @param string $url Url to get analytics
+     * @param DateRange $date Date range to get analytics
+     */
     function getAnalytics(string $url, DateRange $date){
         parent::createClient();
         $this->client->addScope(SearchConsole::WEBMASTERS);
@@ -19,6 +24,10 @@ class GoogleSearchConsoleService extends GoogleService {
         return $googleSearch->searchanalytics->query($url, $query);
     }
 
+    /** 
+     * Create query with range date and dimensions for Google Search Console API
+     * @param DateRange $date Date range to get analytics
+    */
     function createQuery(DateRange $date): SearchAnalyticsQueryRequest {
         $query = new SearchAnalyticsQueryRequest();
         $query->setStartDate($date->getStartDate());

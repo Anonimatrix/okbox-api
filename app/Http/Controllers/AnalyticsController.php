@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Config;
 
 class AnalyticsController extends Controller
 {
+    // Consume Google Search Console API and return data
     public function searchConsole(GoogleSearchConsoleService $service, DateRangeRequest $request) 
     {
         //Declare array to store data from sites
@@ -33,6 +34,7 @@ class AnalyticsController extends Controller
         return new SearchAnalyticCollection($dataSites);
     }
 
+    //Consume Google Analytics API and return data
     public function googleAnalytics(GoogleAnalyticsService $service, DateRangeRequest $request) 
     {
         //Declare array to store data from sites
@@ -52,5 +54,10 @@ class AnalyticsController extends Controller
         }
 
         return AnalyticResource::collection($propertiesData);
+    }
+
+    public function googleAds() 
+    {
+        return response()->json(['message' => 'Not implemented yet'], 501);
     }
 }
