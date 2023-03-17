@@ -5,11 +5,16 @@ namespace App\Http\Controllers;
 use App\Http\Requests\DateRangeRequest;
 use App\Http\Resources\Analytics\AnalyticResource;
 use App\Http\Resources\SearchAnalytic\SearchAnalyticCollection;
+use App\Http\Resources\Wp\WpResource;
 use App\Services\GoogleServices\GoogleSearchConsoleService;
 use Google\Service\AnalyticsReporting\DateRange;
 use Google\Analytics\Data\V1beta\DateRange as DateRangeAnalytics;
 use App\Services\GoogleServices\GoogleAnalyticsService;
+use App\Services\WpOkboxService;
+use ErrorException;
+use Exception;
 use Illuminate\Support\Facades\Config;
+use Symfony\Component\Translation\Exception\InvalidResourceException;
 
 class AnalyticsController extends Controller
 {
@@ -25,7 +30,7 @@ class AnalyticsController extends Controller
         $date->setEndDate($request->input('end_date'));
 
         //Get sites domains to get analytics
-        $sites = Config::get('apis.google-search.domains');
+        $sites = config('apis.google-search.domains');
 
         foreach($sites as $site){
             $dataSites[$site] = $service->getAnalytics($site, $date)->getRows();
@@ -46,7 +51,7 @@ class AnalyticsController extends Controller
         $date->setEndDate($request->input('end_date'));
 
         //Get sites domains to get analytics
-        $properties = Config::get('apis.analytics.properties');
+        $properties = config('apis.analytics.properties');
 
         foreach($properties as $property){
             //Add property name and data to analytics array
@@ -59,5 +64,17 @@ class AnalyticsController extends Controller
     public function googleAds() 
     {
         return response()->json(['message' => 'Not implemented yet'], 501);
+    }
+
+    public function wp(WpOkboxService $service) 
+    {
+        $data = $service->getStats();
+
+        //Check if there is an error in the response
+        if(isset($data['data']) && $data['data']['status'] >= 400 && $data['data']['status'] < 500){
+            throw new InvalidResourceException("Unknown error getting wordpress data");
+        }
+            
+        return new WpResource((object) $data);
     }
 }

@@ -42,3 +42,5 @@ Route::get('/analytics', [AnalyticsController::class, 'googleAnalytics']);//->mi
 
 //Route to get Google Ads data
 Route::get('/google-ads', [AnalyticsController::class, 'googleAds']);//->middleware(['auth:sanctum', 'verified']);
+
+Route::get('/wp', [AnalyticsController::class, 'wp']);//->middleware(['auth:sanctum', 'verified']);

@@ -19,11 +19,11 @@ class GoogleAnalyticsService extends GoogleService{
         /**
          * @var string[] $dimensions array of names dimensions
          */
-        $dimensions = Config::get('apis.analytics.dimensions', []);
+        $dimensions = config('apis.analytics.dimensions', []);
         /**
          * @var string[] $metrics array of names metrics
          */
-        $metrics = Config::get('apis.analytics.metrics', []);
+        $metrics = config('apis.analytics.metrics', []);
 
         // Make an API call.
         $response = $client->runReport([

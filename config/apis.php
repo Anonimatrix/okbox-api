@@ -34,5 +34,9 @@ return [
         ],
     "google-ads" => [
 
+    ],
+    "wordpress" => [
+        "base_url" => "https://okbox.fr/wp-json/log-notifications/v1/",
+        "dev_base_url" => "https://ndo.agency/wp-json/log-notifications/v1/"
     ]
 ];

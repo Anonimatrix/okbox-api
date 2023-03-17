@@ -8,7 +8,7 @@ use Google\Service\SearchConsole\SearchAnalyticsQueryRequest;
 use Google\Service\AnalyticsReporting\DateRange;
 
 class GoogleSearchConsoleService extends GoogleService {
-    public array $dimensions = Config::get('apis.search-console.dimensions', []);
+    public array $dimensions = config('apis.search-console.dimensions', []);
 
     /**
      * Get analytics from Google Search Console API of url with date range and config dimensions
