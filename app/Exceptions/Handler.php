@@ -6,6 +6,7 @@ use Exception;
 use Google\Service\Exception as ServiceException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Illuminate\Validation\ValidationException;
+use Symfony\Component\HttpKernel\Exception\HttpException;
 use Throwable;
 
 class Handler extends ExceptionHandler
@@ -41,6 +42,16 @@ class Handler extends ExceptionHandler
             $errors = $e->getErrors();
             $message = count($errors) > 0 ? ((object) $errors[0])->message : $e->getMessage();
             return response()->json(['message' => $message, "code" => $e->getCode()]);
+        });
+
+        $this->renderable(function (HttpException $e) { 
+            $statusCode = $e->getStatusCode();
+            return response()->json(
+                [
+                    'message' => $e->getMessage() || "Error " . $statusCode,
+                    "code" => $statusCode
+                ]
+            );
         });
 
         $this->renderable(function (Exception $e) {
