@@ -8,8 +8,6 @@ use Google\Service\SearchConsole\SearchAnalyticsQueryRequest;
 use Google\Service\AnalyticsReporting\DateRange;
 
 class GoogleSearchConsoleService extends GoogleService {
-    public array $dimensions = config('apis.search-console.dimensions', []);
-
     /**
      * Get analytics from Google Search Console API of url with date range and config dimensions
      * @param string $url Url to get analytics
@@ -29,10 +27,11 @@ class GoogleSearchConsoleService extends GoogleService {
      * @param DateRange $date Date range to get analytics
     */
     function createQuery(DateRange $date): SearchAnalyticsQueryRequest {
+        $dimensions = config('apis.search-console.dimensions', []);
         $query = new SearchAnalyticsQueryRequest();
         $query->setStartDate($date->getStartDate());
         $query->setEndDate($date->getEndDate());
-        $query->setDimensions($this->dimensions);
+        $query->setDimensions($dimensions);
 
         return $query;
     }
