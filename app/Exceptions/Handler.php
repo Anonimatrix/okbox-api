@@ -41,19 +41,27 @@ class Handler extends ExceptionHandler
         $this->renderable(function (ServiceException $e) {
             $errors = $e->getErrors();
             $message = count($errors) > 0 ? ((object) $errors[0])->message : $e->getMessage();
-            return response()->json(['message' => $message, "code" => $e->getCode()]);
+            return response()->json(['message' => $message, "code" => $e->getCode(), "statusCode" => 500], 500);
         });
 
         $this->renderable(function (HttpException $e) { 
             $code = $e->getStatusCode();
             $statusCode = $code;
             $message = $e->getMessage() ? $e->getMessage() : "Error " . $code;
-            return response()->json(compact('message', 'code', 'statusCode'));
+            return response()->json(compact('message', 'code', 'statusCode'), $statusCode);
+        });
+
+        $this->renderable(function (ValidationException $e) {
+            $errors = $e->errors();
+            $message = "Validation error";
+            $code = 422;
+            $statusCode = 422;
+            return response()->json(compact('message', 'code', 'statusCode', 'errors'), $statusCode);
         });
 
         $this->renderable(function (Exception $e) {
             if(env("APP_ENV") === 'local') dd($e);
-            return response()->json(['message' => $e->getMessage(), "status" => "Error"]);
+            return response()->json(['message' => $e->getMessage(), "status" => "Error", "statusCode" => 500], 500);
         });
     }
 }
