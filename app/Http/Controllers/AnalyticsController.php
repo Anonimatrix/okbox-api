@@ -6,6 +6,7 @@ use App\Http\Requests\DateRangeRequest;
 use App\Http\Resources\Analytics\AnalyticResource;
 use App\Http\Resources\SearchAnalytic\SearchAnalyticCollection;
 use App\Http\Resources\Wp\WpResource;
+use App\Services\GoogleServices\GoogleAdsService;
 use App\Services\GoogleServices\GoogleSearchConsoleService;
 use Google\Service\AnalyticsReporting\DateRange;
 use Google\Analytics\Data\V1beta\DateRange as DateRangeAnalytics;
@@ -30,7 +31,7 @@ class AnalyticsController extends Controller
         $date->setEndDate($request->input('end_date'));
 
         //Get sites domains to get analytics
-        $sites = config('apis.google-search.domains');
+        $sites = config('apis.search-console.domains', []);
 
         foreach($sites as $site){
             $dataSites[$site] = $service->getAnalytics($site, $date)->getRows();
@@ -51,7 +52,7 @@ class AnalyticsController extends Controller
         $date->setEndDate($request->input('end_date'));
 
         //Get sites domains to get analytics
-        $properties = config('apis.analytics.properties');
+        $properties = config('apis.analytics.properties') ?? [];
 
         foreach($properties as $property){
             //Add property name and data to analytics array
@@ -61,8 +62,14 @@ class AnalyticsController extends Controller
         return AnalyticResource::collection($propertiesData);
     }
 
-    public function googleAds() 
+    public function googleAds(GoogleAdsService $service) 
     {
+        $customer_ids = config('apis.google-ads.customer_ids');
+        foreach($customer_ids as $customer_id){
+            $analytic = $service->getAnalytics($customer_id);
+            dd($analytic);
+        }
+
         return response()->json(['message' => 'Not implemented yet'], 501);
     }
 

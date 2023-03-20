@@ -9,9 +9,9 @@ return [
         ],
         "dimensions" => [
             "query",
-            "page",
-            "device",
-            "country"
+            // "page",
+            // "device",
+            // "country"
         ]
     ],
     "analytics" => [
@@ -33,7 +33,7 @@ return [
         ]
         ],
     "google-ads" => [
-
+        "customer_ids" => ["2512373823"],
     ],
     "wordpress" => [
         "base_url" => "https://okbox.fr/wp-json/log-notifications/v1/",

@@ -10,6 +10,7 @@
         "fruitcake/laravel-cors": "^2.0",
         "google/analytics-data": "^0.9.4",
         "google/apiclient": "^2.0",
+        "googleads/google-ads-php": "^18.0",
         "guzzlehttp/guzzle": "^7.0.1",
         "laravel/fortify": "^1.11",
         "laravel/framework": "^8.75",
