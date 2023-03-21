@@ -7,13 +7,10 @@ use Google\Analytics\Data\V1beta\DateRange;
 use Google\Analytics\Data\V1beta\Dimension;
 use Google\Analytics\Data\V1beta\Metric;
 use Google\Analytics\Data\V1beta\RunReportResponse;
-use Google\Protobuf\Internal\Message;
 use Google\Protobuf\Internal\RepeatedField;
-use Illuminate\Support\Facades\Config;
 
-class GoogleAnalyticsService extends GoogleService{
+class GoogleAnalyticsService {
     function getAnalytics(string $propertyId, DateRange $dateRange): array {
-        parent::createClient();
         $client = new BetaAnalyticsDataClient();
 
         /**

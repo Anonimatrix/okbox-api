@@ -38,5 +38,9 @@ return [
     "wordpress" => [
         "base_url" => "https://okbox.fr/wp-json/log-notifications/v1/",
         "dev_base_url" => "https://ndo.agency/wp-json/log-notifications/v1/"
+    ],
+    "space-manager" => [
+        "base_url" => "https://185.63.49.14:8081/spaceman/",
+        "dev_base_url" => "https://185.63.49.14:8081/spaceman/" //https://185.63.49.14:8082/webdemo/
     ]
 ];

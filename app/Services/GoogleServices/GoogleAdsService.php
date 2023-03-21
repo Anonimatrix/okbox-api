@@ -5,7 +5,7 @@ namespace App\Services\GoogleServices;
 use Google\Ads\GoogleAds\Lib\OAuth2TokenBuilder;
 use Google\Ads\GoogleAds\Lib\V13\GoogleAdsClientBuilder;
 
-class GoogleAdsService extends GoogleService {
+class GoogleAdsService {
     function getAnalytics($customer_id = null) {
         if($customer_id == null) return;
 
@@ -13,7 +13,7 @@ class GoogleAdsService extends GoogleService {
         $oAuth2Credential = (new OAuth2TokenBuilder())
             ->withScopes("https://www.googleapis.com/auth/adwords")
             ->withJsonKeyFilePath(env("GOOGLE_APPLICATION_CREDENTIALS", ""))
-            ->withImpersonatedEmail("google-search-consumer@okbox-380719.iam.gserviceaccount.com")
+            ->withImpersonatedEmail("jfs@ndodigital.com")
             ->build();
 
         // Set developer key

@@ -31,9 +31,6 @@ Route::post('/forgot-password', [ResetPasswordController::class, 'forgot'])->nam
 
 Route::post("/reset-password/{token}", [ResetPasswordController::class, 'reset'])->name('password.reset');
 
-// Route::get('/admin', [ProductController::class, 'admin'])->middleware('auth:sanctum');
-
-
 //Route to get Google Search Console data
 Route::get('/search-console', [AnalyticsController::class, 'searchConsole']);//->middleware(['auth:sanctum', 'verified']);
 
@@ -44,3 +41,5 @@ Route::get('/analytics', [AnalyticsController::class, 'googleAnalytics']);//->mi
 Route::get('/google-ads', [AnalyticsController::class, 'googleAds']);//->middleware(['auth:sanctum', 'verified']);
 
 Route::get('/wp', [AnalyticsController::class, 'wp']);//->middleware(['auth:sanctum', 'verified']);
+
+Route::get('/sp-manager', [AnalyticsController::class, 'spManager']);//->middleware(['auth:sanctum', 'verified']);

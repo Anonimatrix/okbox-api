@@ -5,9 +5,11 @@ namespace App\Http\Controllers;
 use App\Http\Requests\DateRangeRequest;
 use App\Http\Resources\Analytics\AnalyticResource;
 use App\Http\Resources\SearchAnalytic\SearchAnalyticCollection;
+use App\Http\Resources\SpManager\SpManagerResource;
 use App\Http\Resources\Wp\WpResource;
 use App\Services\GoogleServices\GoogleAdsService;
 use App\Services\GoogleServices\GoogleSearchConsoleService;
+use App\Services\SpaceManagerService;
 use Google\Service\AnalyticsReporting\DateRange;
 use Google\Analytics\Data\V1beta\DateRange as DateRangeAnalytics;
 use App\Services\GoogleServices\GoogleAnalyticsService;
@@ -83,5 +85,12 @@ class AnalyticsController extends Controller
         }
             
         return new WpResource((object) $data);
+    }
+
+    public function spManager(SpaceManagerService $spaceManagerService)
+    {
+        $data = $spaceManagerService->getStats();
+
+        return new SpManagerResource((object) $data);
     }
 }

@@ -2,21 +2,24 @@
 
 namespace App\Services;
 
+use App\Services\GenericServices\GenericService;
 use Illuminate\Support\Facades\Http;
 
-class WpOkboxService {
-	private string $urlBase;
-	private string $token;
+class WpOkboxService extends GenericService{
 
     function __construct(){
+        $urlBase = "";
+        $token = "";
 		if(env('APP_ENV') == 'local'){
-			$this->urlBase = config('apis.wordpress.dev_base_url');
-			$this->token = base64_encode(env('DEV_API_TOKEN_LEADS', ""));
+			$urlBase = config('apis.wordpress.dev_base_url');
+			$token = base64_encode(env('DEV_API_TOKEN_LEADS', ""));
 		}
 		else{
-			$this->urlBase = config('apis.wordpress.base_url');
-			$this->token = base64_encode(env('PROD_API_TOKEN_LEADS', ""));
+			$urlBase = config('apis.wordpress.base_url');
+			$token = base64_encode(env('PROD_API_TOKEN_LEADS', ""));
 		}
+
+        parent::__construct($urlBase, $token);
 	}
 
     /**
@@ -39,30 +42,4 @@ class WpOkboxService {
 
         return $this->sendRequest($route);
     }
-
-    /**
-     * Construct the request to the API
-     * @param string $route Route to send the request
-     * @param array $data Query data to send
-     * @param string $method GET, POST, PUT, DELETE
-     */
-    protected function sendRequest($route = '', $data = [],  $method = 'get'){
-		if(!$route){
-			return false;
-		}
-
-		$urlApi = $this->urlBase.$route;
-
-        $response = Http::withToken($this->token)
-            ->withoutVerifying()
-            ->send($method, $urlApi, [
-                'query' => $data
-            ]);
-		
-		if (!$response) {
-			return false;
-		}
-		
-        return $response->json();
-	}
 }
