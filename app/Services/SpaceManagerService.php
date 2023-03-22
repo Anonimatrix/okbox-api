@@ -39,10 +39,10 @@ class SpaceManagerService extends GenericService
 			$data['SSiteName'] = $nameSite;
 			$data['Spostcode'] = $postCode;
 			
-			$res = $this->sendRequest('WGetSiteDetails', $data);
+			$res = $this->sendRequest('WGetSiteDetails', 'Basic', $data);
 		}
 		else{
-			$res = $this->sendRequest('WGetSiteDetails');
+			$res = $this->sendRequest('WGetSiteDetails', 'Basic');
 		}
 		
 		return $res;
@@ -51,7 +51,7 @@ class SpaceManagerService extends GenericService
 	
 	// Get the center by id
 	private function getCenterById($centerId){
-		$centers = $this->sendRequest('WGetSiteDetails');
+		$centers = $this->sendRequest('WGetSiteDetails', 'Basic');
         $selectedCenter = null;
 		
 		foreach($centers as $center){
@@ -80,7 +80,7 @@ class SpaceManagerService extends GenericService
 			
         $data['isite'] = $idSite;
     
-        $res = $this->sendRequest('WGetAvailableSizes', $data); 
+        $res = $this->sendRequest('WGetAvailableSizes', 'Basic', $data); 
         
         return $res;
 	}
@@ -102,7 +102,7 @@ class SpaceManagerService extends GenericService
             $data['iSize'] = $idSize;
         }
         
-        $res = $this->sendRequest('WAvailableUnits',$data);		
+        $res = $this->sendRequest('WAvailableUnits', 'Basic', $data);		
         
         return $res;
 	}
@@ -113,7 +113,7 @@ class SpaceManagerService extends GenericService
 	private function getContactTypes($query = ''){
 		$data['thetype'] = $query;
 		
-		$res = $this->sendRequest('WGetContactType', $data);
+		$res = $this->sendRequest('WGetContactType', 'Basic', $data);
 		
 		if($res){
 			return $res;

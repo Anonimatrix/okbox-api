@@ -31,15 +31,22 @@ Route::post('/forgot-password', [ResetPasswordController::class, 'forgot'])->nam
 
 Route::post("/reset-password/{token}", [ResetPasswordController::class, 'reset'])->name('password.reset');
 
-//Route to get Google Search Console data
-Route::get('/search-console', [AnalyticsController::class, 'searchConsole']);//->middleware(['auth:sanctum', 'verified']);
+$isProduction = env('APP_ENV') == 'production';
 
-//Route to get Google Analytics data
-Route::get('/analytics', [AnalyticsController::class, 'googleAnalytics']);//->middleware(['auth:sanctum', 'verified']);
+//Routes with authentication
+Route::group(['middleware' => ($isProduction ? ['auth:sanctum', 'verified'] : [])], function () {
+    //Route to get Google Search Console data
+    Route::get('/search-console', [AnalyticsController::class, 'searchConsole']);//->middleware(['auth:sanctum', 'verified']);
 
-//Route to get Google Ads data
-Route::get('/google-ads', [AnalyticsController::class, 'googleAds']);//->middleware(['auth:sanctum', 'verified']);
+    //Route to get Google Analytics data
+    Route::get('/analytics', [AnalyticsController::class, 'googleAnalytics']);//->middleware(['auth:sanctum', 'verified']);
 
-Route::get('/wp', [AnalyticsController::class, 'wp']);//->middleware(['auth:sanctum', 'verified']);
+    //Route to get Google Ads data
+    Route::get('/google-ads', [AnalyticsController::class, 'googleAds']);//->middleware(['auth:sanctum', 'verified']);
 
-Route::get('/sp-manager', [AnalyticsController::class, 'spManager']);//->middleware(['auth:sanctum', 'verified']);
+    //Route to get all wordpress sites data
+    Route::get('/wp', [AnalyticsController::class, 'wp']);//->middleware(['auth:sanctum', 'verified']);
+
+    //Route to get all space manager sites data
+    Route::get('/sp-manager', [AnalyticsController::class, 'spManager']);//->middleware(['auth:sanctum', 'verified']);
+});

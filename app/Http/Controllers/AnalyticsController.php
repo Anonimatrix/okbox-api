@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\DateRangeRequest;
+use App\Http\Resources\Ads\GoogleAdsResource;
 use App\Http\Resources\Analytics\AnalyticResource;
 use App\Http\Resources\SearchAnalytic\SearchAnalyticCollection;
 use App\Http\Resources\SpManager\SpManagerResource;
@@ -67,12 +68,13 @@ class AnalyticsController extends Controller
     public function googleAds(GoogleAdsService $service) 
     {
         $customer_ids = config('apis.google-ads.customer_ids');
+        $analytics = [];
         foreach($customer_ids as $customer_id){
             $analytic = $service->getAnalytics($customer_id);
-            dd($analytic);
+            array_push($analytics, ['analytics' => (object) $analytic, 'customer_id' => $customer_id]);
         }
 
-        return response()->json(['message' => 'Not implemented yet'], 501);
+        return new GoogleAdsResource($analytics);
     }
 
     public function wp(WpOkboxService $service) 

@@ -52,7 +52,7 @@ class GoogleAdsService {
 
         //Execute query
         $res = $googleAdsServiceClient->search($customer_id, $query);
-        dd($res);
-        return null;
+
+        return $res;
     }
 } 

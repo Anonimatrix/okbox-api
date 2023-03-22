@@ -15,14 +15,14 @@ abstract class GenericService {
      * @param array $data Query data to send
      * @param string $method GET, POST, PUT, DELETE
      */
-    protected function sendRequest($route = '', $data = [],  $method = 'get'){
+    protected function sendRequest($route = '', $authType = 'Bearer', $data = [],  $method = 'get'){
 		if(!$route){
 			return false;
 		}
 
 		$urlApi = $this->baseUrl.$route;
-        
-        $response = Http::withToken($this->token, 'Basic')
+
+        $response = Http::withToken($this->token, $authType)
             ->withoutVerifying()
             ->withOptions([
                 'verify' => false
