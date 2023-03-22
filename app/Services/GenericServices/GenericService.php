@@ -24,6 +24,9 @@ abstract class GenericService {
 
         $response = Http::withToken($this->token)
             ->withoutVerifying()
+            ->withOptions([
+                'verify' => false
+            ])
             ->send($method, $urlApi, [
                 'query' => $data
             ]);

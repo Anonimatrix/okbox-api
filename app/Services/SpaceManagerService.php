@@ -2,7 +2,6 @@
 
 namespace App\Services;
 use App\Services\GenericServices\GenericService;
-use Illuminate\Support\Facades\Http;
 
 class SpaceManagerService extends GenericService
 {
