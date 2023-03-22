@@ -4,7 +4,6 @@ namespace App\Observers;
 
 use App\Jobs\SendWelcomeEmail;
 use App\Models\User;
-
 class UserObserver
 {
     /**
@@ -15,7 +14,7 @@ class UserObserver
      */
     public function created(User $user)
     {
-        dispatch(new SendWelcomeEmail($user->email));
+        // dispatch(new SendWelcomeEmail($user->email));
     }
 
     /**
