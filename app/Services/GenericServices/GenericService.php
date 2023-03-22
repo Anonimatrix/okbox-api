@@ -21,8 +21,8 @@ abstract class GenericService {
 		}
 
 		$urlApi = $this->baseUrl.$route;
-
-        $response = Http::withToken($this->token)
+        
+        $response = Http::withToken($this->token, 'Basic')
             ->withoutVerifying()
             ->withOptions([
                 'verify' => false
