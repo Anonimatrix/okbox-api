@@ -28,7 +28,6 @@ class GoogleAnalyticsService {
             'dateRanges' => [ $dateRange ],
             'dimensions' => $this->createGoogleMessage($dimensions, Dimension::class),
             'metrics' => $this->createGoogleMessage($metrics, Metric::class)
-            
         ]);
 
         return $this->parseAnalytics($response);

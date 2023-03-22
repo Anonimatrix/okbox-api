@@ -2,7 +2,6 @@
 
 namespace App\Services\GoogleServices;
 
-use Illuminate\Support\Facades\Config;
 use Google\Service\SearchConsole;
 use Google\Service\SearchConsole\SearchAnalyticsQueryRequest;
 use Google\Service\AnalyticsReporting\DateRange;
