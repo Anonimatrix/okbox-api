@@ -36,17 +36,17 @@ $isProduction = env('APP_ENV') == 'production';
 //Routes with authentication
 Route::group(['middleware' => ($isProduction ? ['auth:sanctum', 'verified'] : [])], function () {
     //Route to get Google Search Console data
-    Route::get('/search-console', [AnalyticsController::class, 'searchConsole']);//->middleware(['auth:sanctum', 'verified']);
+    Route::get('/search-console', [AnalyticsController::class, 'searchConsole']);
 
     //Route to get Google Analytics data
-    Route::get('/analytics', [AnalyticsController::class, 'googleAnalytics']);//->middleware(['auth:sanctum', 'verified']);
+    Route::get('/analytics', [AnalyticsController::class, 'googleAnalytics']);
 
     //Route to get Google Ads data
-    Route::get('/google-ads', [AnalyticsController::class, 'googleAds']);//->middleware(['auth:sanctum', 'verified']);
+    Route::get('/google-ads', [AnalyticsController::class, 'googleAds']);
 
     //Route to get all wordpress sites data
-    Route::get('/wp', [AnalyticsController::class, 'wp']);//->middleware(['auth:sanctum', 'verified']);
+    Route::get('/wp', [AnalyticsController::class, 'wp']);
 
     //Route to get all space manager sites data
-    Route::get('/sp-manager', [AnalyticsController::class, 'spManager']);//->middleware(['auth:sanctum', 'verified']);
+    Route::get('/sp-manager', [AnalyticsController::class, 'spManager']);
 });
