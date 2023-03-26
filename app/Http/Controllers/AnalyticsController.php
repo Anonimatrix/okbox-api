@@ -15,9 +15,6 @@ use Google\Service\AnalyticsReporting\DateRange;
 use Google\Analytics\Data\V1beta\DateRange as DateRangeAnalytics;
 use App\Services\GoogleServices\GoogleAnalyticsService;
 use App\Services\WpOkboxService;
-use ErrorException;
-use Exception;
-use Illuminate\Support\Facades\Config;
 use Symfony\Component\Translation\Exception\InvalidResourceException;
 
 class AnalyticsController extends Controller

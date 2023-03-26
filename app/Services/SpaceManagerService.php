@@ -26,10 +26,23 @@ class SpaceManagerService extends GenericService
     function getStats()
     {
         return [
-            'centers' => $this->getCenters(),
-            // 'boxes' => $this->getAvailableBoxes(),
-            'contacts_types' => $this->getContactTypes()
+            'centers' => $this->mapCenters(),
         ];
+    }
+
+    function mapCenters()
+    {
+        //Map all centers and return them with sizes and boxes
+        return collect($this->getCenters())
+            ->map(fn ($center) => (
+                array_merge(
+                    $center, 
+                    [
+                        'sizes' => $this->getAvailableSizes($center['siteid']),
+                        'boxes' => $this->getAvailableBoxes($center['siteid'])
+                    ]
+                )
+            ));
     }
 
     //Get all centers
@@ -91,7 +104,7 @@ class SpaceManagerService extends GenericService
      * @param int $idSize Id of the size
      */
 	private function getAvailableBoxes($idSite, $idSize = null){
-		if($idSite)
+		if(!$idSite)
         {
             return false;
         }
