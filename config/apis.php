@@ -12,8 +12,11 @@ function isVoid(array $values) {
 
 return [
     "search-console" => [
-        'domains' => [ // Domains are the websites you want to get search console data from
+        'domains' => [ // Domains or domains properties are the websites you want to get search console data from
             "https://okbox.fr/",
+            "sc-domain:okbox.fr",
+            "sc-domain:caen.okbox.fr",
+            "sc-domain:alencon.okbox.fr",
             ...(isVoid($domains) ? ($domains) : []) //Adding domains if there are some in env file
         ],
         "dimensions" => [
