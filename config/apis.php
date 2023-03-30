@@ -13,12 +13,20 @@ function isVoid(array $values) {
 return [
     "search-console" => [
         'domains' => [ // Domains or domains properties are the websites you want to get search console data from
-            "https://okbox.fr/",
             "sc-domain:okbox.fr",
             "sc-domain:caen.okbox.fr",
             "sc-domain:alencon.okbox.fr",
+            "sc-domain:chartres.okbox.fr",
+            "sc-domain:cuverville.okbox.fr",
+            "sc-domain:evreux.okbox.fr",
+            "sc-domain:laval.okbox.fr",
+            "sc-domain:lemans-nord.okbox.fr",
+            "sc-domain:lemans-sud.okbox.fr",
+            "sc-domain:nantes.okbox.fr",
+            "sc-domain:rennes.okbox.fr",
             ...(isVoid($domains) ? ($domains) : []) //Adding domains if there are some in env file
         ],
+        "row-limit" => 25, // Limit of rows to get from API
         "dimensions" => [
             "query",
             // "page",
