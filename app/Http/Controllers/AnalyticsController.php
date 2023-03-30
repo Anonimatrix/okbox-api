@@ -33,6 +33,7 @@ class AnalyticsController extends Controller
     {
         //Declare array to store data from sites
         $dataSites = [];
+        define("SUBDOMAIN_PREFIX", "sc-domain:");
 
         //Construct date range
         $date = new DateRange(); 
@@ -44,7 +45,7 @@ class AnalyticsController extends Controller
             ->forPage($this->page, $this->perPage);
 
         foreach($sites as $site){
-            $dataSites[$site] = $service->getAnalytics($site, $date)->getRows();
+            $dataSites[str_replace(SUBDOMAIN_PREFIX, "", $site)] = $service->getAnalytics($site, $date)->getRows();
         }
 
         return new SearchAnalyticCollection($dataSites);
