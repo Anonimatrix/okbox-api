@@ -48,7 +48,8 @@ return [
             ...(isVoid($properties) ? ($properties) : []) //Adding properties if there are some in env file
         ],
         "dimensions" => [
-            "defaultChannelGroup"
+            "defaultChannelGroup",
+            "hostname"
         ],
         "metrics" => [
             // 'active28DayUsers', 

@@ -7,9 +7,16 @@ use Google\Analytics\Data\V1beta\DateRange;
 use Google\Analytics\Data\V1beta\Dimension;
 use Google\Analytics\Data\V1beta\Metric;
 use Google\Analytics\Data\V1beta\RunReportResponse;
+use Google\Analytics\Admin\V1alpha\AnalyticsAdminServiceClient;
 use Google\Protobuf\Internal\RepeatedField;
 
-class GoogleAnalyticsService {
+class GoogleAnalyticsService{
+
+    /**
+     * Get analytics from Google Analytics API of property with date range and config dimensions
+     * @param string $propertyId Property to get analytics
+     * @param DateRange $date Date range to get analytics
+     */
     function getAnalytics(string $propertyId, DateRange $dateRange): array {
         $client = new BetaAnalyticsDataClient();
 
@@ -30,7 +37,7 @@ class GoogleAnalyticsService {
             'metrics' => $this->createGoogleMessage($metrics, Metric::class)
         ]);
 
-        return $this->parseAnalytics($response);
+        return $this->parseAnalytics($response, $propertyId);
     }
 
     /** 
@@ -56,7 +63,7 @@ class GoogleAnalyticsService {
      * @param RunReportResponse $response 
      * @return array Return array with metrics and dimensions
      */
-    function parseAnalytics(RunReportResponse $response): array {
+    function parseAnalytics(RunReportResponse $response, int $propertyId): array {
         $data = [];
         $dimensionsHeaders = $response->getDimensionHeaders();
         $metricsHeaders = $response->getMetricHeaders();
@@ -70,7 +77,11 @@ class GoogleAnalyticsService {
             ]);
         }
 
-        return $data;
+        return [
+            'analytics' => $data, 
+            'propertyName' => $this->getPropertyData($propertyId)->getDisplayName(),
+            'propertyId' => $propertyId
+        ];
     }
 
     /**
@@ -86,5 +97,12 @@ class GoogleAnalyticsService {
         }
 
         return $data;
+    }
+
+    function getPropertyData($propertyId)
+    {
+        $client = new AnalyticsAdminServiceClient();
+
+        return $client->getProperty('properties/' . $propertyId);
     }
 }

@@ -67,7 +67,7 @@ class AnalyticsController extends Controller
 
         foreach($properties as $property){
             //Add property name and data to analytics array
-            $propertiesData[$property] = ['analytics' => $service->getAnalytics($property, $date), 'property' => $property];
+            $propertiesData[$property] = $service->getAnalytics($property, $date);
         }
 
         return AnalyticResource::collection($propertiesData);
