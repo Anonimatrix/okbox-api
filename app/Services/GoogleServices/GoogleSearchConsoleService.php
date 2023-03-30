@@ -29,6 +29,7 @@ class GoogleSearchConsoleService extends GoogleService {
         $dimensions = config('apis.search-console.dimensions', []);
         $query = new SearchAnalyticsQueryRequest();
         $query->setStartDate($date->getStartDate());
+        $query->setRowLimit(config('apis.search-console.row-limit', 50));
         $query->setEndDate($date->getEndDate());
         $query->setDimensions($dimensions);
 

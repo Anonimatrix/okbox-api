@@ -19,6 +19,15 @@ use Symfony\Component\Translation\Exception\InvalidResourceException;
 
 class AnalyticsController extends Controller
 {
+    protected int $page = 1;
+    protected int $perPage = 10;
+
+    function __construct()
+    {
+        $this->page = request()->input('page', 1);
+        $this->perPage = request()->input('per_page', 10);
+    }
+    
     // Consume Google Search Console API and return data
     public function searchConsole(GoogleSearchConsoleService $service, DateRangeRequest $request) 
     {
@@ -31,7 +40,8 @@ class AnalyticsController extends Controller
         $date->setEndDate($request->input('end_date'));
 
         //Get sites domains to get analytics
-        $sites = config('apis.search-console.domains', []);
+        $sites = collect(config('apis.search-console.domains', []))
+            ->forPage($this->page, $this->perPage);
 
         foreach($sites as $site){
             $dataSites[$site] = $service->getAnalytics($site, $date)->getRows();
@@ -52,7 +62,8 @@ class AnalyticsController extends Controller
         $date->setEndDate($request->input('end_date'));
 
         //Get sites domains to get analytics
-        $properties = config('apis.analytics.properties') ?? [];
+        $properties = collect(config('apis.analytics.properties', []))
+            ->forPage($this->page, $this->perPage);
 
         foreach($properties as $property){
             //Add property name and data to analytics array
