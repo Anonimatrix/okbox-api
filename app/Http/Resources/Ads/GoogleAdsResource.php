@@ -14,6 +14,14 @@ class GoogleAdsResource extends JsonResource
      */
     public function toArray($request)
     {
-        return parent::toArray($request);
+        $item = (object) $this->resource;
+        
+        return [
+            'Ad Group' => $item->adGroup,
+            'clicks' => $item->metrics->getClicks(),
+            'impressions' => $item->metrics->getImpressions(),
+            'ctr' => $item->metrics->getCtr(),
+            'average_cpc' => $item->metrics->getAverageCpc()
+        ];
     }
 }

@@ -15,17 +15,18 @@ use Google\Service\AnalyticsReporting\DateRange;
 use Google\Analytics\Data\V1beta\DateRange as DateRangeAnalytics;
 use App\Services\GoogleServices\GoogleAnalyticsService;
 use App\Services\WpOkboxService;
+use Illuminate\Http\Request;
 use Symfony\Component\Translation\Exception\InvalidResourceException;
 
 class AnalyticsController extends Controller
 {
     protected int $page = 1;
-    protected int $perPage = 10;
+    protected int $perPage = 3;
 
     function __construct()
     {
-        $this->page = request()->input('page', 1);
-        $this->perPage = request()->input('per_page', 10);
+        $this->page = request()->input('page', $this->page);
+        $this->perPage = request()->input('per_page', $this->perPage);
     }
     
     // Consume Google Search Console API and return data
@@ -74,16 +75,25 @@ class AnalyticsController extends Controller
         return AnalyticResource::collection($propertiesData);
     }
 
-    public function googleAds(GoogleAdsService $service) 
+    public function googleAds(GoogleAdsService $service, Request $request) 
     {
-        $customer_ids = config('apis.google-ads.customer_ids');
+        $start_date = $request->input('start_date');
+        $end_date = $request->input('end_date');
+
+        $customer_ids = collect(config('apis.google-ads.customer_ids', []))
+            ->forPage($this->page, $this->perPage);
+
         $analytics = [];
+
         foreach($customer_ids as $customer_id){
-            $analytic = $service->getAnalytics($customer_id);
-            array_push($analytics, ['analytics' => (object) $analytic, 'customer_id' => $customer_id]);
+            $analytic = $service->getAnalytics($customer_id, $start_date, $end_date);
+            array_push($analytics, (object) $analytic);
         }
 
-        return new GoogleAdsResource($analytics);
+        //Delete repeated data
+        $analytics = collect($analytics)->collapse()->unique('adGroup');
+
+        return GoogleAdsResource::collection($analytics);
     }
 
     public function wp(WpOkboxService $service) 

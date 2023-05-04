@@ -6,7 +6,7 @@ use Google\Ads\GoogleAds\Lib\OAuth2TokenBuilder;
 use Google\Ads\GoogleAds\Lib\V13\GoogleAdsClientBuilder;
 
 class GoogleAdsService {
-    function getAnalytics($customer_id = null) {
+    function getAnalytics($customer_id = null, $start_date = null, $end_date = null) {
         if($customer_id == null) return;
 
         //Create oauth settings
@@ -32,20 +32,16 @@ class GoogleAdsService {
         //Create query
         $query =
             "SELECT campaign.id, "
-                . "campaign.name, "
                 . "ad_group.id, "
                 . "ad_group.name, "
-                . "ad_group_criterion.criterion_id, "
-                . "ad_group_criterion.keyword.text, "
-                . "ad_group_criterion.keyword.match_type, "
                 . "metrics.impressions, "
                 . "metrics.clicks, "
-                . "metrics.cost_micros "
-            . "FROM keyword_view "
-            . "WHERE segments.date DURING LAST_7_DAYS "
-                . "AND campaign.advertising_channel_type = 'SEARCH' "
-                . "AND ad_group.status = 'ENABLED' "
-                . "AND ad_group_criterion.status IN ('ENABLED', 'PAUSED') "
+                . "metrics.average_cpc, "
+                . "metrics.ctr "
+            . "FROM ad_group "
+            . "WHERE ad_group.status = 'ENABLED' "
+            . ($start_date ? "AND segments.date > '{$start_date}' " : "")
+            . ($end_date ? "AND segments.date < '{$end_date}' " : "")
             // Limits to the 50 keywords with the most impressions in the date range.
             . "ORDER BY metrics.impressions DESC "
             . "LIMIT 50";
@@ -53,6 +49,13 @@ class GoogleAdsService {
         //Execute query
         $res = $googleAdsServiceClient->search($customer_id, $query);
 
-        return $res;
+        $metrics = collect($res->getPage()->getResponseObject()->getResults())
+            ->map(function($item, $key){
+                $adGroup = $item->getAdGroup()->getName();
+                $metrics = $item->getMetrics();
+                return compact('adGroup', 'metrics');
+            });
+
+        return $metrics;
     }
 } 
