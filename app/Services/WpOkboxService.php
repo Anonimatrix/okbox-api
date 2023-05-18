@@ -5,7 +5,7 @@ namespace App\Services;
 use App\Services\GenericServices\GenericService;
 use Illuminate\Support\Facades\Http;
 
-class WpOkboxService extends GenericService{
+class WpOkboxService extends GenericService {
 
     function __construct(){
         $urlBase = "";

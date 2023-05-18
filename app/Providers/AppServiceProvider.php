@@ -17,14 +17,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->app->singleton(PaymentGatewayContract::class, function ($app) {
-            $type = $app->make('router')->input('type');
-            if ($type === 'gateway') {
-                return new PaymentGateway('usd');
-            } else {
-                return new PaymentGateway('eur');
-            }
-        });
     }
 
     /**
