@@ -31,6 +31,7 @@ class AuthServiceProvider extends ServiceProvider
 
         VerifyEmail::createUrlUsing(function ($notifiable) {
             $frontendUrl = env('FRONTEND_URL', env('APP_URL', ''));
+            $frotendRoute = env('FRONTEND_VERIFY_EMAIL_ROUTE', '/verify-email');
     
             $verifyUrl = URL::temporarySignedRoute(
                 'verification.verify',
@@ -41,7 +42,7 @@ class AuthServiceProvider extends ServiceProvider
                 ]
             );
     
-            return $frontendUrl . '?verify_url=' . urlencode($verifyUrl);
+            return $frontendUrl . $frotendRoute . '?verify_url=' . urlencode($verifyUrl);
         });
     }
 }
