@@ -9,8 +9,33 @@ use Illuminate\Support\Facades\Password;
 use Illuminate\Support\Str;
 use Illuminate\Validation\ValidationException;
 
+
 class ResetPasswordController extends Controller
 {
+
+    /**
+     * @OA\Post(
+     *     path="/api/forgot-password",
+     *     summary="Send email to recover password",
+     *     tags={"Auth"},
+     *     @OA\RequestBody(
+     *         @OA\MediaType(
+     *             mediaType="application/json",
+     *             @OA\Schema(
+     *                 @OA\Property(
+     *                     property="email",
+     *                     type="string",
+     *                     example="jhon@gmail.com"
+     *                 )
+     *             )
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="OK"
+     *     )
+     * )
+     */
     public function forgot(Request $request)
     {
         $request->validate(['email' => "required|email"]);
@@ -24,6 +49,34 @@ class ResetPasswordController extends Controller
         return response()->json(["error" => 'reset-link-doesnt-sendeed'], 400);
     }
 
+    /**
+     * @OA\Post(
+     *     path="/reset-password/{token}",
+     *     summary="Reset password with provided token and email",
+     *     tags={"Auth"},
+     *     @OA\RequestBody(
+     *         @OA\MediaType(
+     *             mediaType="application/json",
+     *             @OA\Schema(
+     *                 @OA\Property(
+     *                     property="email",
+     *                     type="string",
+     *                     example="jhon@gmail.com"
+     *                 ),
+     *                 @OA\Property(
+     *                     property="password",
+     *                     type="string",
+     *                     example="newSecurePassword"
+     *                 )
+     *             )
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="OK"
+     *     )
+     * )
+     */
     public function reset($token, Request $request)
     {
         $request->validate([

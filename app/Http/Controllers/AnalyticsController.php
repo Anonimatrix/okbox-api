@@ -18,6 +18,13 @@ use App\Services\WpOkboxService;
 use Illuminate\Http\Request;
 use Symfony\Component\Translation\Exception\InvalidResourceException;
 
+/**
+ * @OAS\SecurityScheme(
+ *      securityScheme="bearer_token",
+ *      type="http",
+ *      scheme="bearer"
+ * )
+*/
 class AnalyticsController extends Controller
 {
     protected int $page = 1;
@@ -29,7 +36,45 @@ class AnalyticsController extends Controller
         $this->perPage = request()->input('per_page', $this->perPage);
     }
     
-    // Consume Google Search Console API and return data
+    /**
+     * @OA\Get(
+     *     path="/api/search-console",
+     *     summary="Consume Google Search Console API and return data",
+     *     security={{"bearer_token":{}}},
+     *     tags={"Analytics"},
+     *     @OA\SecurityScheme(
+     *        type="apiKey",
+     *        in="header",
+     *        name="Authorization"
+     *     ),
+     *     @OA\QueryParameter(
+     *        name="start_date",
+     *        required=true,
+     *        description="Start date to get analytics"
+     *     ),
+     *     @OA\QueryParameter(
+     *        name="end_date",
+     *        required=true,
+     *        description="End date to get analytics"
+     *     ),
+     *     @OA\QueryParameter(
+     *        name="page",
+     *        required=false,
+     *        description="Page",
+     *        example=1
+     *     ),
+     *     @OA\QueryParameter(
+     *        name="per_page",
+     *        required=false,
+     *        description="Quantity of items per page",
+     *        example=3
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="OK"
+     *     )
+     * )
+     */
     public function searchConsole(GoogleSearchConsoleService $service, DateRangeRequest $request) 
     {
         //Declare array to store data from sites
@@ -52,7 +97,39 @@ class AnalyticsController extends Controller
         return new SearchAnalyticCollection($dataSites);
     }
 
-    //Consume Google Analytics API and return data
+    /**
+     * @OA\Get(
+     *     path="/api/analytics",
+     *     summary="Consume Google Analytics API and return data",
+     *     tags={"Analytics"},
+     *     @OA\QueryParameter(
+     *        name="start_date",
+     *        required=true,
+     *        description="Start date to get analytics"
+     *     ),
+     *     @OA\QueryParameter(
+     *        name="end_date",
+     *        required=true,
+     *        description="End date to get analytics"
+     *     ),
+     *     @OA\QueryParameter(
+     *        name="page",
+     *        required=false,
+     *        description="Page",
+     *        example=1
+     *     ),
+     *     @OA\QueryParameter(
+     *        name="per_page",
+     *        required=false,
+     *        description="Quantity of items per page",
+     *        example=3
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="OK"
+     *     )
+     * )
+     */
     public function googleAnalytics(GoogleAnalyticsService $service, DateRangeRequest $request) 
     {
         //Declare array to store data from sites
@@ -75,6 +152,39 @@ class AnalyticsController extends Controller
         return AnalyticResource::collection($propertiesData);
     }
 
+    /**
+     * @OA\Get(
+     *     path="/api/google-ads",
+     *     summary="Consume Google Ads API and return data",
+     *     tags={"Analytics"},
+     *     @OA\QueryParameter(
+     *        name="start_date",
+     *        required=true,
+     *        description="Start date to get analytics"
+     *     ),
+     *     @OA\QueryParameter(
+     *        name="end_date",
+     *        required=true,
+     *        description="End date to get analytics"
+     *     ),
+     *     @OA\QueryParameter(
+     *        name="page",
+     *        required=false,
+     *        description="Page",
+     *        example=1
+     *     ),
+     *     @OA\QueryParameter(
+     *        name="per_page",
+     *        required=false,
+     *        description="Quantity of items per page",
+     *        example=3
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="OK"
+     *     )
+     * )
+     */
     public function googleAds(GoogleAdsService $service, Request $request) 
     {
         $start_date = $request->input('start_date');
@@ -96,6 +206,17 @@ class AnalyticsController extends Controller
         return GoogleAdsResource::collection($analytics);
     }
 
+    /**
+     * @OA\Get(
+     *     path="/api/wp",
+     *     summary="Consume WordPress API and return data",
+     *     tags={"Analytics"},
+     *     @OA\Response(
+     *         response=200,
+     *         description="OK"
+     *     )
+     * )
+     */
     public function wp(WpOkboxService $service) 
     {
         $data = $service->getStats();
@@ -108,6 +229,17 @@ class AnalyticsController extends Controller
         return new WpResource((object) $data);
     }
 
+    /**
+     * @OA\Get(
+     *     path="/api/sp-manager",
+     *     summary="Consume WordPress API and return data",
+     *     tags={"Analytics"},
+     *     @OA\Response(
+     *         response=200,
+     *         description="OK"
+     *     )
+     * )
+     */
     public function spManager(SpaceManagerService $spaceManagerService)
     {
         $data = $spaceManagerService->getStats();

@@ -1,0 +1,227 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "API Documentation",
+        "version": "1.0"
+    },
+    "paths": {
+        "/api": {},
+        "/api/search-console": {
+            "get": {
+                "tags": [
+                    "Analytics"
+                ],
+                "summary": "Consume Google Search Console API and return data",
+                "operationId": "3c9b2031c1b7e9b65dd08250e1cc003a",
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer_token": []
+                    }
+                ]
+            }
+        },
+        "/api/analytics": {
+            "get": {
+                "tags": [
+                    "Analytics"
+                ],
+                "summary": "Consume Google Analytics API and return data",
+                "operationId": "957c722a9681b7d81bb0e650ada631cf",
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            }
+        },
+        "/api/google-ads": {
+            "get": {
+                "tags": [
+                    "Analytics"
+                ],
+                "summary": "Consume Google Ads API and return data",
+                "operationId": "a0301dd02d23ff7fde5aad4c88416e5b",
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            }
+        },
+        "/api/wp": {
+            "get": {
+                "tags": [
+                    "Analytics"
+                ],
+                "summary": "Consume WordPress API and return data",
+                "operationId": "2f945a17769ccaf2dafbf7ec6db0bc96",
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            }
+        },
+        "/api/sp-manager": {
+            "get": {
+                "tags": [
+                    "Analytics"
+                ],
+                "summary": "Consume WordPress API and return data",
+                "operationId": "24e3db6ad5ce12da2653fb0da4e18238",
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            }
+        },
+        "/api/login": {
+            "post": {
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "Login user",
+                "operationId": "3673edffcdc18c06ac5aef5e2219d774",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "email": {
+                                        "type": "string",
+                                        "example": "email@gmail.com"
+                                    },
+                                    "password": {
+                                        "type": "string",
+                                        "example": "securePassword"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            }
+        },
+        "/api/register": {
+            "post": {
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "Register user",
+                "operationId": "02a35f8078678f9f0c89b8fdaa5b696a",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "name": {
+                                        "type": "string",
+                                        "example": "John Doe"
+                                    },
+                                    "email": {
+                                        "type": "string",
+                                        "example": "jhon@gmail.com"
+                                    },
+                                    "password": {
+                                        "type": "string",
+                                        "example": "securePassword"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            }
+        },
+        "/api/forgot-password": {
+            "post": {
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "Send email to recover password",
+                "operationId": "5d7eae5209d3057f63ec3dcfa5282b0e",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "email": {
+                                        "type": "string",
+                                        "example": "jhon@gmail.com"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            }
+        },
+        "/reset-password/{token}": {
+            "post": {
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "Reset password with provided token and email",
+                "operationId": "1ec5bfae94cbd8266ded1f3f8d773fbd",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "email": {
+                                        "type": "string",
+                                        "example": "jhon@gmail.com"
+                                    },
+                                    "password": {
+                                        "type": "string",
+                                        "example": "newSecurePassword"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "securitySchemes": {
+            "bearer_token": {
+                "type": "apiKey",
+                "description": "Enter token in format (Bearer <token>)",
+                "name": "Authorization",
+                "in": "header"
+            }
+        }
+    }
+}
