@@ -13,6 +13,36 @@
                 ],
                 "summary": "Consume Google Search Console API and return data",
                 "operationId": "3c9b2031c1b7e9b65dd08250e1cc003a",
+                "parameters": [
+                    {
+                        "name": "start_date",
+                        "in": "query",
+                        "description": "Start date to get analytics",
+                        "required": true,
+                        "example": "2021-01-01"
+                    },
+                    {
+                        "name": "end_date",
+                        "in": "query",
+                        "description": "End date to get analytics",
+                        "required": true,
+                        "example": "2023-01-01"
+                    },
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "description": "Page",
+                        "required": false,
+                        "example": 1
+                    },
+                    {
+                        "name": "per_page",
+                        "in": "query",
+                        "description": "Quantity of items per page",
+                        "required": false,
+                        "example": 3
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "OK"
@@ -32,6 +62,36 @@
                 ],
                 "summary": "Consume Google Analytics API and return data",
                 "operationId": "957c722a9681b7d81bb0e650ada631cf",
+                "parameters": [
+                    {
+                        "name": "start_date",
+                        "in": "query",
+                        "description": "Start date to get analytics",
+                        "required": true,
+                        "example": "2021-01-01"
+                    },
+                    {
+                        "name": "end_date",
+                        "in": "query",
+                        "description": "End date to get analytics",
+                        "required": true,
+                        "example": "2023-01-01"
+                    },
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "description": "Page",
+                        "required": false,
+                        "example": 1
+                    },
+                    {
+                        "name": "per_page",
+                        "in": "query",
+                        "description": "Quantity of items per page",
+                        "required": false,
+                        "example": 3
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "OK"
@@ -46,6 +106,36 @@
                 ],
                 "summary": "Consume Google Ads API and return data",
                 "operationId": "a0301dd02d23ff7fde5aad4c88416e5b",
+                "parameters": [
+                    {
+                        "name": "start_date",
+                        "in": "query",
+                        "description": "Start date to get analytics",
+                        "required": true,
+                        "example": "2021-01-01"
+                    },
+                    {
+                        "name": "end_date",
+                        "in": "query",
+                        "description": "End date to get analytics",
+                        "required": true,
+                        "example": "2023-01-01"
+                    },
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "description": "Page",
+                        "required": false,
+                        "example": 1
+                    },
+                    {
+                        "name": "per_page",
+                        "in": "query",
+                        "description": "Quantity of items per page",
+                        "required": false,
+                        "example": 3
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "OK"
@@ -187,6 +277,15 @@
                 ],
                 "summary": "Reset password with provided token and email",
                 "operationId": "1ec5bfae94cbd8266ded1f3f8d773fbd",
+                "parameters": [
+                    {
+                        "name": "token",
+                        "in": "path",
+                        "description": "Token to reset password",
+                        "required": true,
+                        "example": "token"
+                    }
+                ],
                 "requestBody": {
                     "content": {
                         "application/json": {

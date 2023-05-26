@@ -47,27 +47,33 @@ class AnalyticsController extends Controller
      *        in="header",
      *        name="Authorization"
      *     ),
-     *     @OA\QueryParameter(
+     *     @OA\Parameter(
      *        name="start_date",
      *        required=true,
-     *        description="Start date to get analytics"
+     *        description="Start date to get analytics",
+     *        example="2021-01-01",
+     *        in="query"
      *     ),
-     *     @OA\QueryParameter(
+     *     @OA\Parameter(
      *        name="end_date",
      *        required=true,
-     *        description="End date to get analytics"
+     *        description="End date to get analytics",
+     *        example="2023-01-01",
+     *        in="query"
      *     ),
-     *     @OA\QueryParameter(
+     *     @OA\Parameter(
      *        name="page",
      *        required=false,
      *        description="Page",
-     *        example=1
+     *        example=1,
+     *        in="query"
      *     ),
-     *     @OA\QueryParameter(
+     *     @OA\Parameter(
      *        name="per_page",
      *        required=false,
      *        description="Quantity of items per page",
-     *        example=3
+     *        example=3,
+     *        in="query"
      *     ),
      *     @OA\Response(
      *         response=200,
@@ -102,27 +108,33 @@ class AnalyticsController extends Controller
      *     path="/api/analytics",
      *     summary="Consume Google Analytics API and return data",
      *     tags={"Analytics"},
-     *     @OA\QueryParameter(
+     *     @OA\Parameter(
      *        name="start_date",
      *        required=true,
-     *        description="Start date to get analytics"
+     *        description="Start date to get analytics",
+     *        example="2021-01-01",
+     *        in="query",
      *     ),
-     *     @OA\QueryParameter(
+     *     @OA\Parameter(
      *        name="end_date",
      *        required=true,
-     *        description="End date to get analytics"
+     *        description="End date to get analytics",
+     *        example="2023-01-01",
+     *        in="query",
      *     ),
-     *     @OA\QueryParameter(
+     *     @OA\Parameter(
      *        name="page",
      *        required=false,
      *        description="Page",
-     *        example=1
+     *        example=1,
+     *        in="query",
      *     ),
-     *     @OA\QueryParameter(
+     *     @OA\Parameter(
      *        name="per_page",
      *        required=false,
      *        description="Quantity of items per page",
-     *        example=3
+     *        example=3,
+     *        in="query",
      *     ),
      *     @OA\Response(
      *         response=200,
@@ -157,27 +169,33 @@ class AnalyticsController extends Controller
      *     path="/api/google-ads",
      *     summary="Consume Google Ads API and return data",
      *     tags={"Analytics"},
-     *     @OA\QueryParameter(
+     *     @OA\Parameter(
      *        name="start_date",
      *        required=true,
-     *        description="Start date to get analytics"
+     *        description="Start date to get analytics",
+     *        example="2021-01-01",
+     *        in="query",
      *     ),
-     *     @OA\QueryParameter(
+     *     @OA\Parameter(
      *        name="end_date",
      *        required=true,
-     *        description="End date to get analytics"
+     *        description="End date to get analytics",
+     *        example="2023-01-01",
+     *        in="query",
      *     ),
-     *     @OA\QueryParameter(
+     *     @OA\Parameter(
      *        name="page",
      *        required=false,
      *        description="Page",
-     *        example=1
+     *        example=1,
+     *        in="query",
      *     ),
-     *     @OA\QueryParameter(
+     *     @OA\Parameter(
      *        name="per_page",
      *        required=false,
      *        description="Quantity of items per page",
-     *        example=3
+     *        example=3,
+     *        in="query",
      *     ),
      *     @OA\Response(
      *         response=200,

@@ -54,6 +54,13 @@ class ResetPasswordController extends Controller
      *     path="/reset-password/{token}",
      *     summary="Reset password with provided token and email",
      *     tags={"Auth"},
+     *     @OA\Parameter(
+     *          name="token",
+     *          in="path",
+     *          required=true,
+     *          description="Token to reset password",
+     *          example="token"
+     *     ),
      *     @OA\RequestBody(
      *         @OA\MediaType(
      *             mediaType="application/json",
