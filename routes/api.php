@@ -22,7 +22,7 @@ Route::post('/login', [LoginController::class, 'login']);
 
 Route::post('/register', [RegisterController::class, 'create']);
 
-Route::get("/verify/{user_id}", [EmailVerificationController::class, 'verify'])->name('verification.verify');
+Route::get("/verify/{id}", [EmailVerificationController::class, 'verify'])->name('verification.verify');
 
 Route::post('/forgot-password', [ResetPasswordController::class, 'forgot'])->name('password.email');
 

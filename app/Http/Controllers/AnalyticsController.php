@@ -108,6 +108,7 @@ class AnalyticsController extends Controller
      *     path="/api/analytics",
      *     summary="Consume Google Analytics API and return data",
      *     tags={"Analytics"},
+     *     security={{"bearer_token":{}}},
      *     @OA\Parameter(
      *        name="start_date",
      *        required=true,
@@ -169,6 +170,7 @@ class AnalyticsController extends Controller
      *     path="/api/google-ads",
      *     summary="Consume Google Ads API and return data",
      *     tags={"Analytics"},
+     *     security={{"bearer_token":{}}},
      *     @OA\Parameter(
      *        name="start_date",
      *        required=true,
@@ -229,6 +231,7 @@ class AnalyticsController extends Controller
      *     path="/api/wp",
      *     summary="Consume WordPress API and return data",
      *     tags={"Analytics"},
+     *     security={{"bearer_token":{}}},
      *     @OA\Response(
      *         response=200,
      *         description="OK"
@@ -252,6 +255,7 @@ class AnalyticsController extends Controller
      *     path="/api/sp-manager",
      *     summary="Consume WordPress API and return data",
      *     tags={"Analytics"},
+     *     security={{"bearer_token":{}}},
      *     @OA\Response(
      *         response=200,
      *         description="OK"
